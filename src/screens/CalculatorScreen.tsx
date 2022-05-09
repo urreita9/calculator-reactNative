@@ -97,6 +97,37 @@ export const CalculatorScreen = () => {
     lastOperation.current = Operators.sum;
   };
 
+  const calc = () => {
+    const num1 = Number(resultNumber);
+    const num2 = Number(prevNumber);
+
+    switch (lastOperation.current) {
+      case Operators.sum:
+        setResultNumber(`${num1 + num2}`);
+
+        break;
+      case Operators.substract:
+        setResultNumber(`${num2 - num1}`);
+
+        break;
+      case Operators.multiply:
+        setResultNumber(`${num1 * num2}`);
+
+        break;
+      case Operators.divide:
+        if (num1 === 0) {
+          setResultNumber(
+            `Error. Enter www.franciscourrea.com.ar for more info.`,
+          );
+          return;
+        }
+        setResultNumber(`${num2 / num1}`);
+
+        break;
+    }
+    setPrevNumber('0');
+  };
+
   return (
     <View style={styles.calculatorContainer}>
       {prevNumber !== '0' && (
@@ -111,13 +142,13 @@ export const CalculatorScreen = () => {
         <ButtonCalc text="C" color="#9B9B9B" action={clean} />
         <ButtonCalc text="+/-" color="#9B9B9B" action={positiveNegative} />
         <ButtonCalc text="del" color="#9B9B9B" action={del} />
-        <ButtonCalc text="÷" color="#FF9427" action={divideBtn} />
+        <ButtonCalc text="/" color="#FF9427" action={divideBtn} />
       </View>
       <View style={styles.row}>
         <ButtonCalc text="7" action={writeNumber} />
         <ButtonCalc text="8" action={writeNumber} />
         <ButtonCalc text="9" action={writeNumber} />
-        <ButtonCalc text="×" color="#FF9427" action={multiplyBtn} />
+        <ButtonCalc text="x" color="#FF9427" action={multiplyBtn} />
       </View>
       <View style={styles.row}>
         <ButtonCalc text="4" action={writeNumber} />
@@ -134,7 +165,7 @@ export const CalculatorScreen = () => {
       <View style={styles.row}>
         <ButtonCalc text="0" cero action={writeNumber} />
         <ButtonCalc text="." action={writeNumber} />
-        <ButtonCalc text="=" color="#FF9427" action={clean} />
+        <ButtonCalc text="=" color="#FF9427" action={calc} />
       </View>
     </View>
   );
